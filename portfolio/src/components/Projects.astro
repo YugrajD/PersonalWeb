@@ -1,0 +1,164 @@
+---
+import ProjectCard from './ProjectCard.astro';
+
+const projects = [
+  {
+    title: 'QUORUM',
+    description: 'Built a Congressional vote prediction system achieving 95.7% accuracy on partisan legislation by training gradient boosting models on 1.6M historical votes across 31K+ bills with 75+ features per legislator.',
+    tech: ['Python', 'XGBoost', 'FastAPI', 'PostgreSQL'],
+    github: 'https://github.com/YugrajD/QUORUM',
+    demo: '#',
+    architecture: `flowchart TB
+    subgraph Data Pipeline
+        A[VoteView CSV] --> B[(PostgreSQL)]
+        C[Congress.gov API] --> B
+        B --> D[Feature Engineering]
+        D --> E[training_data View]
+    end
+    
+    subgraph Model Training
+        E --> F[Time Split\\nTrain: ≤115\\nTest: ≥116]
+        F --> G[Preprocessing\\nStandardScaler\\nOneHotEncoder]
+        G --> H[GradientBoostingClassifier\\n200 trees, depth 5]
+        H --> I[vote_predictor_v2.pkl]
+    end
+    
+    subgraph API + Frontend
+        I --> J[FastAPI]
+        B --> J
+        J --> |/members\\n/bills\\n/predict/batch| K[Next.js War Room]
+        K --> L[435-Seat Chamber\\nVisualization]
+        K --> M[3-Wave Vote\\nSimulation]
+    end`,
+    status: 'completed' as const
+  },
+  {
+    title: 'VANTAGE',
+    description: 'Engineered a serverless Valorant analytics pipeline that converts raw match telemetry into coaching insights by building rate-limited batch ingestion and LLM-powered natural language stat queries on AWS Lambda, DynamoDB, and Bedrock.',
+    tech: ['AWS Lambda', 'DynamoDB', 'React', 'Python'],
+    github: 'https://github.com/YugrajD/VANTAGE',
+    architecture: `flowchart TB
+    subgraph Data Ingestion
+        A[EventBridge\\nHourly Trigger] --> B[fetch-matches\\nLambda]
+        B --> C[(S3 Bucket)]
+        C --> D[process-match\\nLambda]
+    end
+    
+    subgraph Storage
+        D --> E[(DynamoDB\\nMatches &\\nAggregates)]
+    end
+    
+    subgraph API Layer
+        F[React Frontend] --> G[API Gateway]
+        G --> H[api-handler\\nLambda]
+        H <--> E
+    end
+    
+    subgraph AI Analysis
+        E --> I[Ollama\\nLocal AI]
+        I --> H
+    end`,
+    status: 'completed' as const
+  },
+  {
+    title: 'DARWN',
+    description: 'Created an adversarial cloud security simulator that evolved resilient IAM and network configurations by running 100+ automated red vs. blue attack/defense rounds with AI agents on AWS infrastructure.',
+    tech: ['AWS', 'Terraform', 'Python', 'Docker'],
+    github: '#',
+    status: 'completed' as const
+  },
+  {
+    title: 'CADMS Capstone',
+    description: 'Designing NLP pipelines to standardize 30+ years of free-text veterinary records to Vet-ICD/SNOMED codes, enabling the first US companion animal cancer registry with geospatial mapping by census tract.',
+    tech: ['Python', 'spaCy', 'NLP', 'FastAPI', 'PostgreSQL'],
+    status: 'in-progress' as const
+  },
+  {
+    title: 'Pyrosphere',
+    description: 'Built a wildfire detection system achieving real-time monitoring of 1,150 camera feeds by training a YOLOv8 model on 21K+ images and processing 14K+ weather entries for risk prediction.',
+    tech: ['YOLOv8', 'Python', 'OpenWeather API', 'React'],
+    github: 'https://github.com/YugrajD/PyroSphere',
+    demo: 'https://devpost.com/software/pyrosphere',
+    status: 'completed' as const
+  },
+  {
+    title: 'Fantasy Draft',
+    description: 'Built a real-time multiplayer fantasy football draft app supporting multi-device synchronization by implementing WebSocket state sync, snake draft logic, and event-driven SQS processing for async post-draft workflows.',
+    tech: ['TypeScript', 'React Native', 'Python', 'FastAPI', 'PostgreSQL', 'WebSockets', 'AWS SQS'],
+    github: 'https://github.com/YugrajD/Live-Fantasy-Football-Draft-Mobile-App',
+    architecture: `flowchart LR
+    subgraph Frontend
+        A[React Native\\nExpo App]
+    end
+    
+    subgraph Backend
+        B[FastAPI\\nWebSocket Manager]
+        C[Draft Logic]
+        D[Timer Service]
+        B --> C
+        B --> D
+    end
+    
+    subgraph Storage
+        E[(PostgreSQL)]
+    end
+    
+    subgraph Async
+        F[SQS Queue]
+        G[Worker]
+        F --> G
+    end
+    
+    A <-->|WebSocket\\nsync, pick_made\\ntimer_tick, draft_complete| B
+    C <--> E
+    C --> F`,
+    status: 'completed' as const
+  },
+  {
+    title: 'The-Moderator',
+    description: 'Built a UN diplomatic simulation where AI-powered world leaders with distinct personalities respond dynamically to crisis interventions by integrating Claude API for real-time dialogue generation and consequence tracking.',
+    tech: ['Python', 'Flask', 'Claude API', 'JavaScript'],
+    github: 'https://github.com/YugrajD/The-Moderator',
+    demo: 'https://devpost.com/software/multiagent-diplomacy',
+    status: 'completed' as const
+  },
+  {
+    title: 'NotifAI',
+    description: 'Built an AI-powered note-taking app at Cal Hacks 12.0 featuring lasso-based mistake correction, video-lesson generation, and homework parsing by integrating Gemini OCR, Manim animations, and Fish Audio TTS.',
+    tech: ['React', 'TypeScript', 'Python', 'Gemini API', 'Manim', 'Flask'],
+    github: 'https://github.com/RKKatakam/NoteTakingApp',
+    demo: 'https://devpost.com/software/notifai-527knq',
+    status: 'completed' as const
+  }
+];
+---
+
+<section id="projects" class="projects">
+  <div class="container">
+    <h2 class="mono">// Projects</h2>
+    
+    <div class="projects-grid">
+      {projects.map(project => (
+        <ProjectCard {...project} />
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .projects {
+    background: var(--bg-secondary);
+  }
+  
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: var(--space-lg);
+  }
+  
+  @media (max-width: 480px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

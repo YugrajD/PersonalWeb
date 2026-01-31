@@ -1,0 +1,35 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <p class="mono text-muted">
+      <span class="text-accent">&gt;</span> Built with Astro
+    </p>
+    <p class="mono text-muted">
+      © {year}
+    </p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    padding: var(--space-xl) 0;
+    border-top: 1px solid var(--border-subtle);
+  }
+  
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8125rem;
+  }
+  
+  @media (max-width: 480px) {
+    .footer-inner {
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+  }
+</style>

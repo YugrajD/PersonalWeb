@@ -1,0 +1,76 @@
+---
+const navLinks = [
+  { href: '#projects', label: 'Projects' },
+  { href: '#about', label: 'About' },
+  { href: '#contact', label: 'Contact' },
+];
+---
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="/" class="nav-logo mono">
+      <span class="text-accent">&gt;</span> yugraj
+    </a>
+    
+    <div class="nav-links">
+      {navLinks.map(link => (
+        <a href={link.href} class="nav-link mono">{link.label}</a>
+      ))}
+    </div>
+  </div>
+</nav>
+
+<style>
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: var(--space-md) 0;
+    background: rgba(15, 17, 21, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .nav-logo {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  
+  .nav-logo:hover {
+    color: var(--text-primary);
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: var(--space-xl);
+  }
+  
+  .nav-link {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+  }
+  
+  .nav-link:hover {
+    color: var(--accent);
+  }
+  
+  @media (max-width: 480px) {
+    .nav-links {
+      gap: var(--space-lg);
+    }
+    
+    .nav-link {
+      font-size: 0.8rem;
+    }
+  }
+</style>

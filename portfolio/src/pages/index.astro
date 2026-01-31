@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import Projects from '../components/Projects.astro';
+import About from '../components/About.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Yugraj | Software Engineer">
+  <Nav />
+  
+  <main>
+    <Hero 
+      name="Yugraj"
+      role="Software Engineer & Security Researcher"
+      tagline="I build systems for prediction, analysis, and defense. Currently researching LLM safety at UC Davis and working on analytics at Amazon."
+    />
+    
+    <Projects />
+    
+    <About />
+    
+    <Contact />
+  </main>
+  
+  <Footer />
+</Layout>

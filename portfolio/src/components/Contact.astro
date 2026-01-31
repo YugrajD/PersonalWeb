@@ -1,0 +1,94 @@
+---
+const links = [
+  {
+    label: 'Email',
+    href: 'mailto:yugrajd1005@gmail.com',
+    display: 'yugrajd1005@gmail.com'
+  },
+  {
+    label: 'GitHub',
+    href: 'https://github.com/yugrajd',
+    display: 'github.com/yugrajd'
+  },
+  {
+    label: 'LinkedIn',
+    href: 'https://linkedin.com/in/yugraj-dhillon',
+    display: 'linkedin.com/in/yugraj-dhillon'
+  }
+];
+---
+
+<section id="contact" class="contact">
+  <div class="container">
+    <h2 class="mono">// Contact</h2>
+    
+    <div class="contact-content">
+      <p class="contact-intro">
+        Open to software engineering roles, research collaborations, and interesting 
+        problems. U.S. citizen with clearance eligibility.
+      </p>
+      
+      <div class="contact-links">
+        {links.map(link => (
+          <a href={link.href} class="contact-link" target="_blank" rel="noopener">
+            <span class="contact-label mono text-muted">{link.label}</span>
+            <span class="contact-value">{link.display}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact {
+    border-top: 1px solid var(--border);
+  }
+  
+  .contact-content {
+    max-width: 600px;
+  }
+  
+  .contact-intro {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    margin-bottom: var(--space-2xl);
+  }
+  
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+  
+  .contact-link {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding: var(--space-md) var(--space-lg);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--border-radius);
+    transition: all 0.2s ease;
+  }
+  
+  .contact-link:hover {
+    border-color: var(--accent);
+    background: var(--bg-card-hover);
+  }
+  
+  .contact-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  .contact-value {
+    color: var(--text-primary);
+    font-size: 1rem;
+  }
+  
+  .contact-link:hover .contact-value {
+    color: var(--accent);
+  }
+</style>

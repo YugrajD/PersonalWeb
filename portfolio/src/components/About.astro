@@ -1,0 +1,207 @@
+---
+const skills = {
+  languages: ['Python', 'JavaScript', 'TypeScript', 'Java', 'SQL'],
+  cloud: ['AWS Lambda', 'DynamoDB', 'S3', 'EC2', 'Terraform'],
+  ml: ['PyTorch', 'scikit-learn', 'XGBoost', 'YOLOv8'],
+  tools: ['Git', 'Docker', 'Linux', 'PostgreSQL', 'FastAPI']
+};
+
+const experience = [
+  {
+    role: 'Software Engineer (Capstone)',
+    company: 'UC Davis Center for Animal Disease Modeling and Surveillance',
+    period: 'Jan 2026 – Present',
+    bullets: [
+      'Designing NLP pipelines using spaCy to standardize 30+ years of free-text veterinary records to Vet-ICD/SNOMED codes.',
+      'Building a geospatial dashboard mapping companion animal cancer cases by census tract with environmental risk overlays.',
+      'Architecting de-identification workflows to enable the first US companion animal cancer registry.'
+    ]
+  },
+  {
+    role: 'LLM Safety Researcher',
+    company: 'C² Computational Lab',
+    period: 'April 2025 – Sept 2025',
+    bullets: [
+      'Quantified AI safety alignment by designing prompt experiments across 6 LLMs to detect suppression of social media harm information.',
+      'Developed automated data analysis pipelines using Pandas to calculate relative risk scores across 50+ topics.',
+      'Evaluated response consistency and bias patterns to contribute to peer-reviewed research on LLM safety and transparency.'
+    ]
+  },
+  {
+    role: 'Software Engineer Intern',
+    company: 'AAUW Davis',
+    period: 'May 2025 – Present',
+    bullets: [
+      'Increased monthly site traffic by 300% after leading the website redesign and updating website content.',
+      'Engineered and deployed responsive web pages, improving UI usability and eliminating legacy content.',
+      'Collaborated directly with board members to define feature scopes and execute releases within strict deadlines.'
+    ]
+  }
+];
+---
+
+<section id="about" class="about">
+  <div class="container">
+    <h2 class="mono">// About</h2>
+    
+    <div class="about-grid">
+      <div class="about-content">
+        <p>
+          I'm a Computer Science senior at UC Davis graduating June 2026, focused on 
+          building systems that matter. Currently researching LLM safety—studying bias 
+          and jailbreak vulnerabilities—and designing NLP pipelines to standardize 30+ years of veterinary records for the first US companion animal cancer registry.
+        </p>
+        <p class="mt-md">
+          I like hard problems: predicting congressional votes, detecting adversarial 
+          attacks, building infrastructure that scales. I write code that's meant to 
+          be read, tested, and deployed.
+        </p>
+        
+        <div class="experience mt-xl">
+          <h3 class="mono mb-md">Experience</h3>
+          {experience.map(exp => (
+            <div class="exp-item">
+              <div class="exp-header">
+                <span class="exp-role">{exp.role}</span>
+                <span class="exp-period mono text-muted">{exp.period}</span>
+              </div>
+              <span class="exp-company text-accent">{exp.company}</span>
+              {exp.bullets && (
+                <ul class="exp-bullets">
+                  {exp.bullets.map((bullet) => (
+                    <li>{bullet}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+      
+      <div class="skills">
+        <h3 class="mono mb-md">Skills</h3>
+        
+        <div class="skill-group">
+          <span class="skill-label mono text-muted">Languages</span>
+          <div class="skill-tags">
+            {skills.languages.map(s => <span class="tag">{s}</span>)}
+          </div>
+        </div>
+        
+        <div class="skill-group">
+          <span class="skill-label mono text-muted">Cloud & Infra</span>
+          <div class="skill-tags">
+            {skills.cloud.map(s => <span class="tag">{s}</span>)}
+          </div>
+        </div>
+        
+        <div class="skill-group">
+          <span class="skill-label mono text-muted">ML & Data</span>
+          <div class="skill-tags">
+            {skills.ml.map(s => <span class="tag">{s}</span>)}
+          </div>
+        </div>
+        
+        <div class="skill-group">
+          <span class="skill-label mono text-muted">Tools</span>
+          <div class="skill-tags">
+            {skills.tools.map(s => <span class="tag">{s}</span>)}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3xl);
+  }
+  
+  .about-content p {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+  }
+  
+  .experience {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+  
+  .exp-item {
+    padding: var(--space-md);
+    background: var(--bg-card);
+    border-left: 2px solid var(--accent);
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  }
+  
+  .exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--space-md);
+    margin-bottom: var(--space-xs);
+  }
+  
+  .exp-role {
+    font-weight: 500;
+  }
+  
+  .exp-period {
+    font-size: 0.8125rem;
+    white-space: nowrap;
+  }
+  
+  .exp-company {
+    font-size: 0.875rem;
+  }
+  
+  .exp-bullets {
+    margin-top: var(--space-sm);
+    padding-left: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  
+  .skills {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+  
+  .skill-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  
+  .skill-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+  
+  @media (max-width: 768px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-2xl);
+    }
+    
+    .exp-header {
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+  }
+</style>

@@ -1,0 +1,198 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  tech: string[];
+  metric?: string;
+  metricLabel?: string;
+  github?: string;
+  demo?: string;
+  status?: 'live' | 'in-progress' | 'planned' | 'completed';
+  architecture?: string;
+}
+
+const { title, description, tech, metric, metricLabel, github, demo, status = 'live', architecture } = Astro.props;
+
+const statusColors = {
+  'live': '#22c55e',
+  'in-progress': '#f59e0b',
+  'planned': '#6b7280',
+  'completed': '#22c55e'
+};
+
+const statusLabels = {
+  'live': 'Live',
+  'in-progress': 'In Progress',
+  'planned': 'Planned',
+  'completed': 'Completed'
+};
+---
+
+<article class="project-card card">
+  <div class="project-header">
+    <h3 class="project-title mono">{title}</h3>
+    <div class="project-status" style={`--status-color: ${statusColors[status]}`}>
+      <span class="status-indicator"></span>
+      <span class="mono">{statusLabels[status]}</span>
+    </div>
+  </div>
+  
+  <p class="project-description">{description}</p>
+  
+  {metric && (
+    <div class="project-metric">
+      <span class="metric-value mono">{metric}</span>
+      <span class="metric-label">{metricLabel}</span>
+    </div>
+  )}
+  
+  <div class="project-tech">
+    {tech.map(t => (
+      <span class="tag">{t}</span>
+    ))}
+  </div>
+
+  {architecture && (
+    <details class="project-architecture">
+      <summary class="project-architecture-summary mono">Architecture</summary>
+      <div class="project-architecture-body">
+        <div class="mermaid">
+          {architecture}
+        </div>
+      </div>
+    </details>
+  )}
+  
+  <div class="project-links">
+    {github && (
+      <a href={github} class="project-link" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+        </svg>
+        Code
+      </a>
+    )}
+    {demo && (
+      <a href={demo} class="project-link" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/>
+        </svg>
+        Demo
+      </a>
+    )}
+  </div>
+</article>
+
+<style>
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+  
+  .project-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-md);
+  }
+  
+  .project-title {
+    font-size: 1.125rem;
+  }
+  
+  .project-status {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+  
+  .status-indicator {
+    width: 6px;
+    height: 6px;
+    background: var(--status-color);
+    border-radius: 50%;
+  }
+  
+  .project-description {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+  
+  .project-metric {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-sm);
+    padding: var(--space-md);
+    background: var(--bg-secondary);
+    border-radius: var(--border-radius);
+  }
+  
+  .metric-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  
+  .metric-label {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+  
+  .project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .project-architecture {
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--border-radius);
+    background: var(--bg-secondary);
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .project-architecture-summary {
+    cursor: pointer;
+    user-select: none;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+  }
+
+  .project-architecture[open] .project-architecture-summary {
+    color: var(--text-primary);
+  }
+
+  .project-architecture-body {
+    margin-top: var(--space-md);
+    overflow-x: auto;
+  }
+
+  /* Mermaid outputs inline SVG; keep it responsive */
+  .project-architecture :global(svg) {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .project-links {
+    display: flex;
+    gap: var(--space-lg);
+    margin-top: auto;
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--border-subtle);
+  }
+  
+  .project-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+  }
+  
+  .project-link:hover {
+    color: var(--accent);
+  }
+</style>
